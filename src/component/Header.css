@@ -1,9 +1,14 @@
 .header {
-  width: 100%;
+  width: 40%;
+}
+.ulheader {
   list-style-type: none;
   display: flex;
   justify-content: space-around;
 }
 .active-item {
   color: blue;
+}
+h3 {
+  text-decoration: none;
 }

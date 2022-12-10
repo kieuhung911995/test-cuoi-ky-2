@@ -6,21 +6,21 @@ const Header = () => {
     return params.isActive ? "active-item" : "";
   };
   return (
-    <header>
-      <ul className="header">
+    <header className="header">
+      <ul className="ulheader">
         <li>
           <NavLink to="/" className={handleActive}>
-            All
+            <h3>All</h3>
           </NavLink>
         </li>
         <li>
           <NavLink to="/active" className={handleActive}>
-            Active
+            <h3>Active</h3>
           </NavLink>
         </li>
         <li>
           <NavLink to="/completed" className={handleActive}>
-            Completed
+            <h3>Completed</h3>
           </NavLink>
         </li>
       </ul>

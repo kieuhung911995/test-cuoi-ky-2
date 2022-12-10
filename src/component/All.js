@@ -1,5 +1,5 @@
 import "./All.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const LiComponent = ({ element }) => {
   return (
@@ -7,7 +7,7 @@ const LiComponent = ({ element }) => {
       <div>
         <input type={"checkbox"}></input>
       </div>
-      <div>{element}</div>
+      <div className="element">{element}</div>
     </div>
   );
 };
@@ -18,6 +18,10 @@ const All = () => {
     "Do coding challenges",
     "Do coding challenges",
   ]);
+  useEffect(() => {
+    const PARSEdata = JSON.parse(localStorage.getItem("data"));
+    setItems(PARSEdata);
+  }, [items]);
   const [input, setInput] = useState("");
   const handleInput = (event) => {
     setInput(event.target.value);
@@ -26,30 +30,39 @@ const All = () => {
     if (input === "") {
       alert("You must add something!");
     } else {
-      setItems([...items, input]); //input co the lon len truoc ...items
+      setItems([...items, input]);
+      const JSONlocal = JSON.stringify([...items, input]);
+      localStorage.setItem("data", JSONlocal);
       setInput("");
     }
   };
   return (
-    <>
-      <div id="myDIV" className="header">
-        <h2 style={{ margin: "5px" }}>My To Do List</h2>
+    <div className="add-body">
+      <div className="add-input">
         <input
           type="text"
           id="myInput"
           placeholder="add details"
           value={input}
           onChange={handleInput}
-          style={{ borderStyle: "solid", borderRadius: "5px" }}
+          style={{
+            borderStyle: "solid",
+            borderRadius: "5px",
+            width: "80%",
+            borderColor: "gray",
+            borderWidth: "2px",
+          }}
         />
-        <span className="addBtn" onClick={handleAdd}>
+        <div className="addBtn" onClick={handleAdd}>
           <>Add</>
-        </span>
+        </div>
       </div>
-      {items.map((element) => (
-        <LiComponent element={element} />
-      ))}
-    </>
+      <div className="LiComponent">
+        {items.map((element) => (
+          <LiComponent element={element} />
+        ))}
+      </div>
+    </div>
   );
 };
 

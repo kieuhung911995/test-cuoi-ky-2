@@ -7,7 +7,7 @@ const LiComponent = ({ element }) => {
       <div>
         <input type={"checkbox"}></input>
       </div>
-      <div>{element}</div>
+      <div className="element">{element}</div>
     </div>
   );
 };
@@ -30,25 +30,32 @@ const Active = () => {
     }
   };
   return (
-    <>
-      <div id="myDIV" className="header">
-        <h2 style={{ margin: "5px" }}>My To Do List</h2>
+    <div className="add-body">
+      <div className="add-input">
         <input
           type="text"
           id="myInput"
           placeholder="add details"
           value={input}
           onChange={handleInput}
-          style={{ borderStyle: "solid", borderRadius: "5px" }}
+          style={{
+            borderStyle: "solid",
+            borderRadius: "5px",
+            width: "80%",
+            borderColor: "gray",
+            borderWidth: "2px",
+          }}
         />
-        <span className="addBtn" onClick={handleAdd}>
+        <div className="addBtn" onClick={handleAdd}>
           <>Add</>
-        </span>
+        </div>
       </div>
-      {items.map((element) => (
-        <LiComponent element={element} />
-      ))}
-    </>
+      <div className="LiComponent">
+        {items.map((element) => (
+          <LiComponent element={element} />
+        ))}
+      </div>
+    </div>
   );
 };
 

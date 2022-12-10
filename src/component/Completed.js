@@ -1,60 +1,54 @@
 import "./Completed.css";
-import { useState } from "react";
+import { ImBin } from "react-icons/im";
+import { useState, createContext, useContext } from "react";
+
+export const Display = createContext();
 
 const LiComponent = ({ element }) => {
+  const display = useContext(Display);
+  const handleDelete1 = () => {
+    display.items.splice(0, 1);
+    display.setItems([...display.items]);
+  };
   return (
-    <div className="component">
-      <div>
-        <input type={"checkbox"} size={"40px"}></input>
+    <div className="LiComponent3">
+      <div className="component">
+        <div>
+          <input type={"checkbox"}></input>
+        </div>
+        <div className="element">{element}</div>
       </div>
-      <div>{element}</div>
+      <div onClick={handleDelete1}>
+        <ImBin style={{ marginTop: "10px" }} />
+      </div>
     </div>
   );
 };
 
 const Completed = () => {
-  const [items, setItems] = useState([
-    "Do coding challenges",
-    "Do coding challenges",
-    "Do coding challenges",
-  ]);
-  const [input, setInput] = useState("");
-  const handleInput = (event) => {
-    setInput(event.target.value);
+  const [items, setItems] = useState(["Task done", "Task done", "Task done"]);
+  const handleDeleteAll = () => {
+    setItems([]);
   };
-  const handleAdd = () => {
-    if (input === "") {
-      alert("You must add something!");
-    } else {
-      setItems([...items, input]); //input co the lon len truoc ...items
-      setInput("");
-    }
-  };
+
   return (
-    <>
-      <div id="myDIV" className="header">
-        <h2 style={{ margin: "5px" }}>My To Do List</h2>
-        <input
-          type="text"
-          id="myInput"
-          placeholder="add details"
-          value={input}
-          onChange={handleInput}
-          style={{ borderStyle: "solid", borderRadius: "5px" }}
-        />
-        <span className="addBtn" onClick={handleAdd}>
-          <>Add</>
-        </span>
-      </div>
-      {items.map((element) => (
-        <LiComponent element={element} />
-      ))}
-      <div className="delete-position">
-        <div className="delete">
-          <div>delete all</div>
+    <Display.Provider
+      value={{
+        items: items,
+        setItems: setItems,
+      }}
+    >
+      <div className="add-body">
+        {items.map((element, index) => (
+          <LiComponent element={element} key={index} />
+        ))}
+        <div className="delete-position" onClick={handleDeleteAll}>
+          <div className="delete">
+            <div>delete all</div>
+          </div>
         </div>
       </div>
-    </>
+    </Display.Provider>
   );
 };
 
